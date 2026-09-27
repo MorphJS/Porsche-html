@@ -1,0 +1,98 @@
+/* Temas de clase: #id (línea 39) | .class (todo el archivo) | :hover (líneas 37,55,73,84,91)
+   transition + efecto zoom (línea 53,71) | círculo perfecto (línea 83)
+   Filtros: BRILLO (línea 42) | SEPIA (línea 60) | GRISES (línea 70) | OPACIDAD (línea 77) | DESENFOCAR (línea 83) */
+
+:root {
+  --bg: #000; --text: #f5f5f7; --muted: #a1a1a6; --line: rgba(255,255,255,.12);
+  --ease: cubic-bezier(.4,0,.2,1);
+  font: 400 16px/1.5 'Inter', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); }
+img { display: block; max-width: 100%; }
+h1, h2 { margin: 0 0 16px; font-weight: 600; letter-spacing: -.02em; }
+h1 { font-size: clamp(40px, 6vw, 80px); }
+h2 { font-size: clamp(28px, 4vw, 44px); }
+p { margin: 0; color: var(--muted); font-size: 18px; }
+.eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: .12em; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+
+.btn {
+  display: inline-block; padding: 13px 30px; border-radius: 980px; font: 500 15px/1 var(--sans, inherit);
+  text-decoration: none; color: var(--text); border: 1px solid rgba(255,255,255,.35);
+  backdrop-filter: blur(20px) saturate(180%);
+  background: linear-gradient(160deg, rgba(255,255,255,.28), rgba(255,255,255,.04) 55%), rgba(255,255,255,.06);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.5), 0 8px 22px rgba(0,0,0,.35);
+  transition: transform .35s var(--ease), background .35s var(--ease);
+}
+.btn:hover { transform: translateY(-1px) scale(1.03); background: linear-gradient(160deg, rgba(255,255,255,.4), rgba(255,255,255,.1) 55%); }
+.btn:active { transform: scale(.98); }
+.btn-primary { color: #111; background: linear-gradient(160deg, rgba(255,255,255,.95), rgba(255,255,255,.65) 55%); border-color: rgba(255,255,255,.6); }
+.btn-glass { padding: 10px 24px; font-size: 14px; }
+
+.nav { position: fixed; inset-inline: 0; top: 0; z-index: 100; backdrop-filter: blur(20px) saturate(180%); background: rgba(20,20,22,.55); border-bottom: 1px solid var(--line); }
+.nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-weight: 700; letter-spacing: .1em; color: var(--text); text-decoration: none; font-size: 15px; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .25s var(--ease); }
+.nav-links a:hover { color: var(--text); } /* :hover -> actúa mientras el mouse está sobre el elemento */
+
+#inicio { scroll-margin-top: 64px; } /* Selector #id -> único en el documento */
+
+.hero { position: relative; height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.6); } /* BRILLO */
+.hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.75)); }
+.hero-content { position: relative; padding: 0 32px 90px; max-width: 720px; }
+.hero-content p { font-size: 20px; margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 16px; }
+
+.split { display: grid; grid-template-columns: 1.1fr .9fr; min-height: 80vh; }
+.split-media { overflow: hidden; }
+.split-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.95); /* filtro: brillo */
+  transition: transform .6s var(--ease), filter .6s var(--ease); /* efecto zoom */
+}
+.split-media:hover img { transform: scale(1.06); filter: brightness(1.05); }
+.split-copy { display: flex; flex-direction: column; justify-content: center; padding: 64px; }
+.split-copy p { margin: 16px 0 28px; }
+
+.banner { position: relative; height: 70vh; overflow: hidden; }
+.banner img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.85); } /* SEPIA */
+.banner-caption { position: absolute; inset: auto 0 48px; text-align: center; }
+
+.gallery { padding: 100px 32px; text-align: center; }
+.gallery-head { margin-bottom: 48px; }
+.gallery-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.gallery-grid figure { margin: 0; border-radius: 18px; overflow: hidden; position: relative; }
+.gallery-grid img {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  filter: grayscale(100%);
+  transition: transform .5s var(--ease), filter .5s var(--ease);
+}
+.gallery-grid figure:hover img { transform: scale(1.08); filter: grayscale(0%); } /* :hover -> quita GRISES + efecto zoom */
+.gallery-grid figcaption { position: absolute; left: 16px; bottom: 14px; font-size: 15px; font-weight: 500; }
+
+.feature { position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.feature-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: opacity(.55); } /* OPACIDAD: deja ver el fondo negro (--bg) detrás */
+.feature-content { position: relative; max-width: 640px; padding: 0 24px; }
+.feature-content p { margin-top: 16px; font-size: 19px; }
+
+.cta { display: flex; align-items: center; gap: 40px; padding: 80px 32px; max-width: 1100px; margin: 0 auto; }
+.cta-thumb { width: 220px; aspect-ratio: 1; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,.15); box-shadow: 0 20px 40px rgba(0,0,0,.5); filter: blur(3px); transition: filter .4s var(--ease); } /* círculo perfecto + DESENFOCAR */
+.cta-thumb:hover { filter: blur(0); } /* :hover -> se enfoca */
+.cta > div { flex: 1; }
+.cta p { font-size: 17px; }
+
+.footer { text-align: center; padding: 48px 32px; border-top: 1px solid var(--line); }
+.footer p { margin-top: 12px; font-size: 13px; color: #6e6e73; }
+.footer .logo { filter: opacity(.8); transition: filter .4s ease; } /* filtro: opacidad */
+.footer .logo:hover { filter: opacity(1) blur(.3px); }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .split { grid-template-columns: 1fr; }
+  .split-media { height: 320px; }
+  .split-copy { padding: 40px 24px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .cta { flex-direction: column; text-align: center; }
+}
